@@ -1,6 +1,6 @@
 function [v1]= mean_var_corr(lags,trc,n, mv)
 
-% MEAN_VAR_CORR_SAMPLER - > sampling timeseries with 
+% MEAN_VAR_CORR - > sampling timeseries with
 %                                                   time-resolved correlation
 %                                                   (and mean and variance)
 
@@ -45,22 +45,24 @@ function [v1]= mean_var_corr(lags,trc,n, mv)
 
 [k,t]= size(trc);
 
+% check inputs
 if ~exist('n', 'var')|| isempty(n)
     error('Number of regions must be provided with time-resolved correlation');
 end
 if  k~=length(lags)
     error('Enough time-resolved corr values are not provided');
 end
+
 if ~exist('mv', 'var') || isempty(mv)
     mv= [zeros(1,t); ones(1,t)];  % zero-mean and unit variance
 end
+
 nbmin= min(lags);  % closest correlation constraint
 seed= rand(n, nbmin);  % sample only enough seed columns to start sampling
 seed= zscore(seed,[],1);   % sample zscored seed vector
 
 v1= zeros(n,t); % initialize output
-v1(:, 1:nbmin)= seed;  % the last min(kvec) timepoints are not constrained so use seed
-sig1=1;  % set std=1
+v1(:, 1:nbmin)= seed;  % the first timepoint is not constrained so use seed
 
 for tt=nbmin+1:t    % iterate over timepoints
     nb_ind= tt-lags; % index of constrained timepoints
@@ -68,11 +70,12 @@ for tt=nbmin+1:t    % iterate over timepoints
     ts= v1(:, nb_ind);  %  activity at previous m timepoints
     c1= trc(:, tt);  %  correlations to the previous m timepoints
     c1(isnan(c1))=[];
+
     % compute b  and A ( setting up equations as Ax=b)
-    b= [(n-1).*c1;0];   % (n-1 ) is a scaling parameter (see derivation in Methods)
+    b= [(n-1).*c1;0];   % (n-1) is a scaling parameter (see derivation in Methods)
     A= [ts'; ones(1,n)];  % coefficients
     Z=null(A);
-    xstar= lsqminnorm(A,b);     
+    xstar= lsqminnorm(A,b);
     d= sqrt((n-1) - norm(xstar)^2);  % use pythagoras theorem to compute d
     Nvar= normrnd(0,1,[size(Z,2),1]);  % sample normal dist
     q= Nvar./(vecnorm(Nvar,2,1));   % uniformly sample q
