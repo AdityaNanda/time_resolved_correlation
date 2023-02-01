@@ -6,8 +6,9 @@ function [beta1, flucts]=dfa(vt,intervals)
 % optimized for computing the fluctuations for 'n' timeseries parallely
 % 
 %% INPUTS 
-% 'v0'                   -> n x t timeseries 
-% 'intervals'         -> 1 x d vector of d time windows over which
+% 'v0'                   -> n x t amplitude-envelope timeseries. See
+%                              Methods in paper
+% 'intervals'         -> 1 x d vector of d integer time windows over which
 %                              fluctuations are computed
 
 %% OUTPUTS
@@ -38,7 +39,7 @@ end
 % compute slope in power-law
 xx= [log(intervals),ones(size(intervals)) ]; 
 yy= log(flucts); 
- temp=pinv(xx)*yy'; 
+temp=pinv(xx)*yy'; 
 beta1=temp(1, :); 
 
 end
