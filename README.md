@@ -17,6 +17,5 @@ The script 'main.m' includes demo of the two principal functions and uses ~ 20 s
 
 # Reference
 
-[1] 
 [2] Elizabeth Johnson (2018); Intracranial EEG recordings of medial temporal, lateral frontal, and orbitofrontal regions in 10 human adults performing a visuospatial working memory task. CRCNS.org <a href="http://dx.doi.org/10.6080/K0VX0DQD">doi</a>
 
