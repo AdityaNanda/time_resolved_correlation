@@ -1,8 +1,8 @@
-function [alph, d,gamm,xmin, xmax, Px, Cx,...
-  llhmax] = powerexp_fit(F, rmin, rmax, lx, tip)
-%[d alph gamm xmin xmax P C] = powerexp_fit(F, rmin, rmax, lx, tip)
+function [alph, d,gamm,xmin, xmax, Px, Cx, llhmax] = powerexp_fit(F, rmin, rmax, lx, tip)
+% POWEREXP_FIT      Fit power law with exponential cutoff
 %
-%   Fit power law with exponential cutoff
+%   [d alph gamm xmin xmax P C] = powerexp_fit(F, rmin, rmax, lx, tip)
+%
 %   Inputs,
 %       F,      input frequency histogram
 %       rmin,   range of xmin
@@ -17,7 +17,7 @@ function [alph, d,gamm,xmin, xmax, Px, Cx,...
 %       xmin,   lower bound on distribution
 %       xmax,   upper bound on distribution
 %       P,      perfect probability distribution for perfect power-law
-
+%
 % P(alph, gamm) = x^(-alph) * exp(-gamm*x);
 % sum( P(alph,gamm,xmin:end) ./ Konst(alph,gamm,xmin) ) = 1;
 % sum( P(alph,gamm,xmin:xmax)./(Konst(alph,gamm,xmin)-Konst(alph,gamm,xmax+1)) ) = 1;
@@ -27,8 +27,8 @@ persistent Pag Konst Alph Gamm la lg
 if ischar(F) && strcmp(F,'reset')
     mlx=rmin;                                               %this is not rmin in the standard sense
     Alph=1:0.01:5.9;
-     Gamm=0; %-0.8:0.002:0.8;
-     la = length(Alph);
+    Gamm=0; %-0.8:0.002:0.8;
+    la = length(Alph);
     lg = length(Gamm);
     Pag = inf(la,lg,mlx);
     Konst = inf(la,lg,mlx);
@@ -79,17 +79,17 @@ for g=1:rmin
                 end
             end
         end
-        
+
         [i j]=find(LLh==max(LLh(:)),1);
         Ai(g,h)=i;
         Gi(g,h)=j;
         llhmax= LLh(i,j);  % likelihood of best estimate
-        
+
         CPagAiGi = cumsum(squeeze(Pag(i,j,g:lx-h)./(Konst(i,j,g)-Konst(i,j,lx-h+1)))).';
         Cemp = (C(g:lx-h)-C(lx-h+1))./(C(g)-C(lx-h+1));
         Cthe = (CPagAiGi(end) - [0 CPagAiGi(1:end-1)]);
         assert(isequal(size(Cemp), size(Cthe)), 'Cthe and Cemp must have the same size');
-        
+
         if abs(Cthe(1)-1)<1e-10
             Cthe(1)=1;
         else
@@ -99,14 +99,14 @@ for g=1:rmin
         if ~isreal(d)
             error('d contains an imaginary value.')
         end
-        
+
         switch tip
             case 'ks'
                 D(g,h) = max(abs(d));
             case 'kuiper'
                 D(g,h) = max(d)+max(-d);
         end
-        
+
     end
 end
 

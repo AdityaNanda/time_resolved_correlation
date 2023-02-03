@@ -1,6 +1,8 @@
 # Time resolved correlation of distributed brain activity tracks E-I balance and accounts for diverse scale-free phenomena
 
-This is a MATLAB based tool for sampling timeseries data with preserved mean, variance and time-resolved correlation. Time-resolved correlation, defined as Pearson's correlation between adjacent timepoints, has been shown to track and recapitulate 1/f-based estimates of global cortical Excitation-Inhibition (E-I) balance. The tool is based on nullspace sampling methods. Although, primarily designeed with electrophysiologgy datasets in mind, the tool can be used for any timeseries data. 
+This is a set of MATLAB-based tools for sampling timeseries data with preserved mean, variance and time-resolved correlation. Time-resolved correlation is the Pearson correlation between brain activity vectors at adjacent timepoints and tracks 1/f-based estimates of excitation-inhibition balance. The present tool leverages nullspace sampling methods. Although it is primarily designeed with electrophysiology datasets in mind, it can be used for any multivariate timeseries data. 
+
+These tools also contain functions for computing detrended fluctuation analysis and avalanche statistics.
 
 # Getting started
 
@@ -10,12 +12,7 @@ To add the toolbox to the MATLAB path, use the command `addpath(genpath(path_to_
 
 # Demo
 
-The script 'main.m' includes demo of the two principal functions and uses ~ 20 seconds of freely available Human iEEG data [2] to demostrate their use . The two functions are 
+The script `demo_main.m` is a demo of the two main functions on a ~20 second recording of a freely available human intracranial EEG dataset (Johnson, 2018)[http://dx.doi.org/10.6080/K0VX0DQD]. The two functions are:
 
-*  'mean_var_corr.m'  - > generate synthetic timeseries with preserved time-resolved correlation of distributed brain activity (and mean and varaince). 
-* 'mean_var.m'        - > generate synthetic timeseries with preserved mean and variance
-
-# Reference
-
-[2] Elizabeth Johnson (2018); Intracranial EEG recordings of medial temporal, lateral frontal, and orbitofrontal regions in 10 human adults performing a visuospatial working memory task. CRCNS.org <a href="http://dx.doi.org/10.6080/K0VX0DQD">doi</a>
-
+* `mean_var_corr.m`: sample timeseries constrained by time-resolved correlation, variance, and mean. 
+* `mean_var.m`: sample timeseries constrained by time-resolved variance and mean.
