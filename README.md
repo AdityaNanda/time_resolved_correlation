@@ -12,7 +12,7 @@ To add the toolbox to the MATLAB path, use the command `addpath(genpath(path_to_
 
 # Demo
 
-The script `demo_main.m` is a demo of the two main functions on a ~20 second recording of a freely available human intracranial EEG dataset (Johnson, 2018)[http://dx.doi.org/10.6080/K0VX0DQD]. The two functions are:
+The script `demo_main.m` is a demo of the two main functions on a ~20 second recording of a freely available human intracranial EEG dataset [Johnson, 2018](http://dx.doi.org/10.6080/K0VX0DQD). The two functions are:
 
 * `mean_var_corr.m`: sample timeseries constrained by time-resolved correlation, variance, and mean. 
 * `mean_var.m`: sample timeseries constrained by time-resolved variance and mean.
