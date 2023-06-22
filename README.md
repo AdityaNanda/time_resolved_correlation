@@ -11,7 +11,7 @@ Download or clone this repository into your preferred location. To download, sim
 To add the toolbox to the MATLAB path, use the command `addpath(genpath(path_to_toolbox))` or use the _Set path_ button in the _Environment_ section of the _Home_ ribbon, and click _add with subfolders_. Now you can directly access the relevant functions.
 
 # Licence
-This software is free to use for all academic and research purposes. For details see the Licence file. 
+This software is free to use for all academic and research purposes. See the Licence file for details. 
 
 # Demo
 
